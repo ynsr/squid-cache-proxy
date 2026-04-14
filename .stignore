@@ -1,0 +1,37 @@
+# File extensions
+**/*.jar
+**/*.xlsx
+**/*.zip
+**/*.iml
+**/*.swp
+**/*.log
+*.xlsx
+*.zip
+*.csv
+*.iml
+*.swp
+*.conflict
+*.conflict-info
+*.log
+
+# Directories (prune entire trees)
+**/node_modules/**
+**/target/**
+temp/**
+.idea/**
+.stfolder/**
+
+# Sync metadata
+.sync_state.sync-conflict-*.json
+.sync_state.json
+.sync_progress.json
+.sync_skipped_deletions.json
+
+
+.vscode/**
+
+.DS_Store
+__pycache__/**
+tests/__pycache__/**
+**/*.pyc
+.pytest_cache/**

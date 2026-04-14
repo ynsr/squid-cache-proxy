@@ -1,0 +1,19 @@
+services:
+  squid:
+    image: squid-ssl-arm64
+    container_name: squid-proxy
+    restart: always
+    network_mode: host
+    volumes:
+      - /srv/appdata/squid/config/squid.conf:/etc/squid/squid.conf
+      - /srv/appdata/squid/config/storeid.conf:/etc/squid/storeid.conf
+      - /srv/appdata/squid/cache:/var/spool/squid
+      - /srv/appdata/squid/ssl:/etc/squid/ssl
+      - /srv/appdata/squid/ssl_db:/var/lib/squid/ssl_db
+      - /srv/appdata/squid/logs:/var/log/squid
+    healthcheck:
+      test: ["CMD", "squidclient", "-h", "localhost", "mgr:ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

@@ -1,0 +1,18 @@
+# .syncript — syncript project configuration
+# Author: Younes Rahimi
+#
+# profiles: list of sync profiles for this project.
+# Each profile has: name, server, port, local_root, remote_root.
+# remote_root is relative to defaults.base_remote when it does not start with '/'.
+profiles:
+  - name: default
+    server: '136.0.10.24'
+    port: 9011
+    user: 'root'
+    local_root: 'C:/Users/bs/projects/personal/squid-cache-proxy'
+    remote_root: '/root/projects/personal/squid-cache-proxy'
+    batch_file_size: 524288
+defaults:
+  base_remote: '/root'
+  server: '136.0.10.24'
+  port: 9011
