@@ -33,7 +33,7 @@ echo "✅ SSL DB initialized"
 
 # ─── Squid Config ─────────────────────────────────────────────────
 echo "=== [4/4] Writing squid.conf ==="
-cp ./config/*  "$CONFIG_DIR/
+cp ./config/*  "$CONFIG_DIR/"
 echo "✅ squid.conf copied"
 
 echo ""
