@@ -12,8 +12,8 @@ services:
       - /srv/appdata/squid/ssl_db:/var/lib/squid/ssl_db
       - /srv/appdata/squid/logs:/var/log/squid
     healthcheck:
-      test: ["CMD", "squidclient", "-h", "localhost", "mgr:ping"]
+      test: ["CMD-SHELL", "nc -z 127.0.0.1 3128 || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 15s
+      start_period: 20s
