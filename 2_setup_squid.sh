@@ -16,8 +16,11 @@ openssl req -new -newkey rsa:2048 -sha256 -days 3650 -nodes -x509 \
     -out    "$SSL_DIR/squid-ca.crt" \
     -subj   "/CN=R6S-SquidCA/O=HomeProxy/C=US"
 
+cat "$SSL_DIR/squid-ca.key" \
+    "$SSL_DIR/squid-ca.crt" > "$SSL_DIR/squid-ca.pem"
+
 chmod 600 "$SSL_DIR/squid-ca.key"
-chmod 644 "$SSL_DIR/squid-ca.crt"
+chmod 644 "$SSL_DIR/squid-ca.crt" "$SSL_DIR/squid-ca.pem"
 echo "✅ CA certificate created"
 
 # ─── SSL Certificate Database ─────────────────────────────────────
@@ -26,8 +29,8 @@ docker run --rm \
     -v "$SSL_DB_DIR:/var/lib/squid/ssl_db" \
     squid-ssl-arm64 \
     bash -c "
-        /usr/lib/squid/security_file_certgen -c -s /var/lib/squid/ssl_db/ssl_db -M 4MB
-        chown -R proxy:proxy /var/lib/squid/ssl_db/ssl_db
+        /usr/lib/squid/security_file_certgen -c -s /var/lib/squid/ssl_db/ssl_db -M 16MB
+        chown -R proxy:proxy /var/lib/squid/ssl_db
     "
 echo "✅ SSL DB initialized"
 
