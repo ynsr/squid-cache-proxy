@@ -12,7 +12,7 @@ services:
       - /srv/appdata/squid/ssl_db:/var/lib/squid/ssl_db
       - /srv/appdata/squid/logs:/var/log/squid
     healthcheck:
-      test: ["CMD-SHELL", "nc -z 127.0.0.1 3128 || exit 1"]
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/3128' 2>/dev/null && echo ok || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
