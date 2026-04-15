@@ -1,11 +1,9 @@
 services:
   squid:
-    image: squid-arm64
+    image: squid-ssl-arm64
     container_name: squid-proxy
     restart: unless-stopped
     network_mode: host
-    ports:
-      - "3128:3128"
     volumes:
       - /srv/appdata/squid/config/squid.conf:/etc/squid/squid.conf
       - /srv/appdata/squid/config/storeid.conf:/etc/squid/storeid.conf

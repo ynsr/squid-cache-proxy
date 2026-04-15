@@ -30,9 +30,10 @@ chown -R ${SQUID_USER}:${SQUID_GROUP} \
     "$SSL_DB_DIR" "$SQUID_CACHE_DIR" "$SQUID_SSL_DIR" /var/log/squid
 
 # Initialize SSL certificate database if not already present
-if [ ! -f "$SSL_DB_DIR/index.txt" ]; then
+if [ ! -f "$SSL_DB_DIR/ssl_db/index.txt" ]; then
     echo "🔐 Initializing Squid SSL certificate database..."
-    sudo -u ${SQUID_USER} $CERTGEN -c -s "$SSL_DB_DIR" -M 16MB
+#    sudo -u ${SQUID_USER} $CERTGEN -c -s "$SSL_DB_DIR" -M 16MB
+    $CERTGEN -c -s "$SSL_DB_DIR/ssl_db" -M 16MB
 else
     echo "ℹ️ SSL certificate database already initialized."
 fi
@@ -44,10 +45,11 @@ squid -z || true
 # Generate a self-signed CA certificate if not provided
 if [ ! -f "$SQUID_SSL_DIR/squid-ca.pem" ]; then
     echo "🔑 Generating self-signed Squid CA certificate..."
-    openssl req -new -newkey rsa:4096 -days 3650 -nodes -x509 \
+    openssl req -new -newkey rsa:2048 -days 3650 -nodes -x509 \
         -keyout "$SQUID_SSL_DIR/squid-ca.key" \
         -out "$SQUID_SSL_DIR/squid-ca.crt" \
-        -subj "/C=TR/ST=Istanbul/L=Istanbul/O=Squid Proxy/CN=Squid-CA"
+        -subj   "/CN=R6S-SquidCA/O=HomeProxy/C=US"
+        # -subj "/C=TR/ST=Istanbul/L=Istanbul/O=Squid Proxy/CN=Squid-CA"
 
     cat "$SQUID_SSL_DIR/squid-ca.key" \
         "$SQUID_SSL_DIR/squid-ca.crt" > "$SQUID_SSL_DIR/squid-ca.pem"
