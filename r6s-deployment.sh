@@ -2,7 +2,7 @@
 ssh root@192.168.88.110
 
 # Make scripts executable
-chmod +x build_squid.sh setup_squid.sh start_squid.sh
+chmod +x 1_build_squid.sh 2_setup_squid.sh 3_start_squid.sh
 
 # Step 1: Build image (~5-10 min first time)
 bash 1_build_squid.sh

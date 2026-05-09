@@ -1,2 +1,11 @@
 *-ca.crt
 *-ca.key
+*.zip
+.syncript
+.sync_state.csv
+.sync*
+**/*.log
+*.log
+*.bak
+*.tmp
+*.swp

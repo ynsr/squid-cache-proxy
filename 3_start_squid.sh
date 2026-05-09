@@ -31,7 +31,8 @@ case "$ACTION" in
     echo ""
     echo "=== Last 100 requests HIT/MISS ==="
     docker exec squid-proxy tail -100 /var/log/squid/access.log \
-        | awk '{print $4}' | sort | uniq -c | sort -rn
+        | awk '{split($3, a, "/"); code=a[1]; if (code ~ /HIT/) print "HIT"; else if (code ~ /MISS/) print "MISS"; else print "OTHER"}' \
+        | sort | uniq -c | sort -rn
     ;;
   status)
     docker ps | grep squid
